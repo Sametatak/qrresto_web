@@ -1,0 +1,761 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="QR Resto, restoran ve kafeler icin QR menü, dijital adisyon, masadan ödeme ve admin masa takibi sunan modern ödeme deneyimidir."
+    />
+    <meta name="theme-color" content="#0f2f2c" />
+    <title>QR Resto | Restoranlar icin QR ödeme sistemi</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #17201d;
+        --muted: #5f6f68;
+        --line: #dfe7e1;
+        --paper: #ffffff;
+        --soft: #f5f8f5;
+        --green: #0f766e;
+        --green-deep: #0f2f2c;
+        --lime: #c7e35f;
+        --amber: #e6a33d;
+        --rose: #db6b67;
+        --shadow: 0 22px 60px rgba(15, 47, 44, 0.14);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .shell {
+        width: min(1160px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid rgba(223, 231, 225, 0.76);
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 72px;
+        gap: 24px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+      }
+
+      .brand-mark {
+        width: 36px;
+        height: 36px;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(15, 118, 110, 0.24);
+        border-radius: 8px;
+        background: #e7f6ee;
+        color: var(--green-deep);
+        font-size: 14px;
+        font-weight: 900;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 650;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 0 18px;
+        border: 1px solid transparent;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .button.primary {
+        background: var(--green-deep);
+        color: #ffffff;
+      }
+
+      .button.secondary {
+        border-color: var(--line);
+        background: #ffffff;
+        color: var(--green-deep);
+      }
+
+      .hero {
+        border-bottom: 1px solid var(--line);
+        background:
+          linear-gradient(180deg, rgba(15, 118, 110, 0.08), rgba(255, 255, 255, 0) 42%),
+          #ffffff;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
+        align-items: center;
+        gap: 46px;
+        padding: 40px 0 24px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 0 18px;
+        color: var(--green);
+        font-size: 13px;
+        font-weight: 850;
+      }
+
+      .eyebrow::before {
+        content: "";
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: 0 0 0 5px rgba(199, 227, 95, 0.22);
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 650px;
+        margin-bottom: 20px;
+        font-size: 48px;
+        line-height: 1.02;
+        letter-spacing: 0;
+      }
+
+      .hero-copy {
+        max-width: 620px;
+        margin-bottom: 28px;
+        color: #42524d;
+        font-size: 18px;
+        line-height: 1.62;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 26px;
+      }
+
+      .hero-proof {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        max-width: 620px;
+      }
+
+      .proof-item {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 14px;
+        background: rgba(255, 255, 255, 0.74);
+      }
+
+      .proof-item strong {
+        display: block;
+        margin-bottom: 4px;
+        color: var(--green-deep);
+        font-size: 18px;
+      }
+
+      .proof-item span {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      .hero-visual {
+        position: relative;
+        min-height: 382px;
+      }
+
+      .visual-frame {
+        overflow: hidden;
+        border: 1px solid rgba(15, 47, 44, 0.13);
+        border-radius: 8px;
+        background: #10211f;
+        box-shadow: var(--shadow);
+      }
+
+      .visual-frame.admin {
+        position: absolute;
+        top: 4px;
+        right: 0;
+        width: 70%;
+      }
+
+      .visual-frame.menu {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 34%;
+        background: #ffffff;
+        box-shadow: 0 22px 44px rgba(15, 47, 44, 0.22);
+      }
+
+      .visual-frame img {
+        width: 100%;
+        height: auto;
+      }
+
+      .visual-caption {
+        position: absolute;
+        right: 18px;
+        bottom: 16px;
+        max-width: 280px;
+        border: 1px solid rgba(15, 47, 44, 0.12);
+        border-radius: 8px;
+        padding: 14px 16px;
+        background: rgba(255, 255, 255, 0.94);
+        color: var(--green-deep);
+        font-size: 13px;
+        font-weight: 800;
+        box-shadow: 0 16px 34px rgba(15, 47, 44, 0.14);
+      }
+
+      .section {
+        padding: 76px 0;
+      }
+
+      .section.soft {
+        background: var(--soft);
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 30px;
+        margin-bottom: 32px;
+      }
+
+      .section-head h2 {
+        max-width: 640px;
+        margin-bottom: 0;
+        font-size: 38px;
+        line-height: 1.12;
+        letter-spacing: 0;
+      }
+
+      .section-head p {
+        max-width: 440px;
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.65;
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .step,
+      .feature,
+      .metric {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #ffffff;
+      }
+
+      .step {
+        min-height: 230px;
+        padding: 24px;
+      }
+
+      .step-number {
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        margin-bottom: 30px;
+        border-radius: 8px;
+        background: var(--green-deep);
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 900;
+      }
+
+      .step h3,
+      .feature h3 {
+        margin-bottom: 10px;
+        font-size: 20px;
+        letter-spacing: 0;
+      }
+
+      .step p,
+      .feature p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.58;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .feature {
+        min-height: 210px;
+        padding: 22px;
+      }
+
+      .feature-line {
+        width: 48px;
+        height: 4px;
+        margin-bottom: 22px;
+        border-radius: 8px;
+        background: var(--amber);
+      }
+
+      .feature:nth-child(2) .feature-line {
+        background: var(--green);
+      }
+
+      .feature:nth-child(3) .feature-line {
+        background: var(--rose);
+      }
+
+      .feature:nth-child(4) .feature-line {
+        background: var(--lime);
+      }
+
+      .trust {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+        gap: 34px;
+        align-items: center;
+      }
+
+      .trust-panel {
+        border: 1px solid rgba(15, 47, 44, 0.15);
+        border-radius: 8px;
+        padding: 30px;
+        background: var(--green-deep);
+        color: #ffffff;
+      }
+
+      .trust-panel h2 {
+        margin-bottom: 14px;
+        font-size: 36px;
+        line-height: 1.15;
+        letter-spacing: 0;
+      }
+
+      .trust-panel p {
+        margin-bottom: 0;
+        color: rgba(255, 255, 255, 0.76);
+        font-size: 16px;
+        line-height: 1.68;
+      }
+
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .metric {
+        padding: 22px;
+      }
+
+      .metric strong {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--green);
+        font-size: 24px;
+      }
+
+      .metric span {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .cta {
+        padding: 54px 0 72px;
+        background: #101816;
+        color: #ffffff;
+      }
+
+      .cta-box {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 28px;
+        align-items: center;
+      }
+
+      .cta h2 {
+        margin-bottom: 10px;
+        font-size: 36px;
+        line-height: 1.15;
+        letter-spacing: 0;
+      }
+
+      .cta p {
+        max-width: 680px;
+        margin-bottom: 0;
+        color: rgba(255, 255, 255, 0.72);
+        line-height: 1.64;
+      }
+
+      .cta .button.primary {
+        background: var(--lime);
+        color: #14201d;
+      }
+
+      footer {
+        padding: 24px 0;
+        background: #101816;
+        color: rgba(255, 255, 255, 0.58);
+        font-size: 13px;
+      }
+
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        padding-top: 22px;
+      }
+
+      @media (max-width: 980px) {
+        .nav-links {
+          display: none;
+        }
+
+        .hero-grid,
+        .trust,
+        .cta-box {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-grid {
+          padding-top: 48px;
+        }
+
+        h1 {
+          font-size: 46px;
+        }
+
+        .hero-visual {
+          min-height: 420px;
+        }
+
+        .visual-frame.admin {
+          width: 86%;
+        }
+
+        .visual-frame.menu {
+          width: 46%;
+        }
+
+        .feature-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        .shell {
+          width: min(100% - 28px, 1160px);
+        }
+
+        .hero-grid {
+          padding: 48px 0 40px;
+          gap: 32px;
+        }
+
+        h1 {
+          font-size: 38px;
+        }
+
+        .hero-copy {
+          font-size: 17px;
+        }
+
+        .hero-proof,
+        .steps,
+        .feature-grid,
+        .metrics {
+          grid-template-columns: 1fr;
+        }
+
+        .section {
+          padding: 56px 0;
+        }
+
+        .section-head {
+          display: block;
+        }
+
+        .section-head h2,
+        .trust-panel h2,
+        .cta h2 {
+          font-size: 30px;
+        }
+
+        .section-head p {
+          margin-top: 14px;
+        }
+
+        .hero-visual {
+          min-height: auto;
+          display: grid;
+          gap: 14px;
+        }
+
+        .visual-frame.admin,
+        .visual-frame.menu,
+        .visual-caption {
+          position: static;
+          width: 100%;
+        }
+
+        .visual-caption {
+          max-width: none;
+        }
+
+        .footer-row {
+          display: block;
+        }
+
+        .footer-row span {
+          display: block;
+          margin-bottom: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <nav class="shell nav" aria-label="Ana navigasyon">
+        <a class="brand" href="#top" aria-label="QR Resto ana sayfa">
+          <span class="brand-mark">QR</span>
+          <span>QR Resto</span>
+        </a>
+        <div class="nav-links" aria-label="Sayfa bolumleri">
+          <a href="#model">Model</a>
+          <a href="#faydalar">Faydalar</a>
+          <a href="#guven">Guven</a>
+        </div>
+        <a class="button primary" href="mailto:sametatak1234@gmail.com?subject=QR%20Resto%20Pilot%20Restoran">Pilot gorusme</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="shell hero-grid">
+          <div>
+            <p class="eyebrow">Pilot restoranlar icin hazir QR deneyimi</p>
+            <h1 id="hero-title">QR Resto</h1>
+            <p class="hero-copy">
+              Restoran ve kafeler icin QR menü, dijital adisyon, masadan ödeme,
+              bahşiş ve canlı masa takibini tek akışta birleştiren modern ödeme sistemi.
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="mailto:sametatak1234@gmail.com?subject=QR%20Resto%20Demo%20Talebi">Demo iste</a>
+              <a class="button secondary" href="#model">Modeli incele</a>
+            </div>
+            <div class="hero-proof" aria-label="QR Resto ozeti">
+              <div class="proof-item">
+                <strong>QR</strong>
+                <span>Masa bazlı güvenli menü ve ödeme akışı</span>
+              </div>
+              <div class="proof-item">
+                <strong>Split</strong>
+                <span>Hesap bölme, kısmi ödeme ve bahşiş desteği</span>
+              </div>
+              <div class="proof-item">
+                <strong>Panel</strong>
+                <span>Tablet uyumlu canlı masa ve sipariş takibi</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-visual" aria-label="QR Resto urun ekranlari">
+            <figure class="visual-frame admin">
+              <img src="assets/admin-preview.png" alt="QR Resto admin masa haritasi ve dekont paneli" />
+            </figure>
+            <figure class="visual-frame menu">
+              <img src="assets/menu-preview.png" alt="QR Resto mobil menu ve sepet deneyimi" />
+            </figure>
+            <div class="visual-caption">
+              Musteri telefondan ilerler, restoran masayi tablet panelinden anlik takip eder.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="model" class="section">
+        <div class="shell">
+          <div class="section-head">
+            <h2>Masadaki odeme akisi restoranin isini yavaslatmadan ilerler.</h2>
+            <p>
+              QR Resto, garsonu devreden cikarmak yerine tekrar eden hesap alma
+              islemlerini azaltir ve ekibin servis kalitesine odaklanmasini saglar.
+            </p>
+          </div>
+          <div class="steps">
+            <article class="step">
+              <div class="step-number">1</div>
+              <h3>QR okutulur</h3>
+              <p>Musteri masaya ozel QR kodu okutur, menuyu ve adisyonu telefonundan gorur.</p>
+            </article>
+            <article class="step">
+              <div class="step-number">2</div>
+              <h3>Tutar secilir</h3>
+              <p>Urun bazli hesaplama yardimi, elle tutar girisi ve bahsis ayni ekranda calisir.</p>
+            </article>
+            <article class="step">
+              <div class="step-number">3</div>
+              <h3>Odeme tamamlanir</h3>
+              <p>Nakit, kart veya yemek karti akislari restorana ait hesap uzerinden yonetilir.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="faydalar" class="section soft">
+        <div class="shell">
+          <div class="section-head">
+            <h2>Kafe ve restoranlar icin sade ama satisa hazir bir operasyon katmani.</h2>
+            <p>
+              Odak, restoran sahibinin her gun gordugu problemlerde: masa donusu,
+              adisyon takibi, bahsis, nakit onayi ve mutfakla koordinasyon.
+            </p>
+          </div>
+          <div class="feature-grid">
+            <article class="feature">
+              <div class="feature-line"></div>
+              <h3>Canli masa haritasi</h3>
+              <p>Admin paneli masalari, acik hesaplari ve odeme durumlarini tek ekranda gosterir.</p>
+            </article>
+            <article class="feature">
+              <div class="feature-line"></div>
+              <h3>Musteri siparisi</h3>
+              <p>Sepet, mutfak bildirimi ve siparis durumlari tablet ekranina uyumlu akar.</p>
+            </article>
+            <article class="feature">
+              <div class="feature-line"></div>
+              <h3>Bahsis ve bolusum</h3>
+              <p>Musteri kendi odemek istedigi tutari ve bahsisi elle belirleyebilir.</p>
+            </article>
+            <article class="feature">
+              <div class="feature-line"></div>
+              <h3>AI menu asistani</h3>
+              <p>Menuye hakim asistan, kararsiz musterilere hafif, doyurucu veya tatli onerileri sunar.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="guven" class="section" aria-labelledby="trust-title">
+        <div class="shell trust">
+          <div class="trust-panel">
+            <h2 id="trust-title">Odeme modeli restoran hesabini merkeze alir.</h2>
+            <p>
+              QR Resto, pazaryeri veya sanal POS altyapisi ile calisacak sekilde tasarlanir.
+              Musteriden alinan odeme resmi odeme kurulusunun akisi icinde restorana iletilir;
+              platform komisyonu ayrica tanimlanabilir.
+            </p>
+          </div>
+          <div class="metrics" aria-label="Guven modeli basliklari">
+            <div class="metric">
+              <strong>Resmi PSP</strong>
+              <span>PayTR, Param veya benzeri lisansli odeme kuruluslariyla calismaya uygun yapi.</span>
+            </div>
+            <div class="metric">
+              <strong>Alt uye isyeri</strong>
+              <span>Restoran, odeme akisi icinde kendi ticari kimligiyle konumlanir.</span>
+            </div>
+            <div class="metric">
+              <strong>Panel guvenligi</strong>
+              <span>Admin ve mutfak ekranlari sifreli, tahmin edilmesi zor URL yapisiyla korunur.</span>
+            </div>
+            <div class="metric">
+              <strong>Dekont kaydi</strong>
+              <span>Gun ici odemeler, bahsisler ve masa kapatmalari geriye donuk izlenebilir.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta" aria-labelledby="cta-title">
+        <div class="shell cta-box">
+          <div>
+            <h2 id="cta-title">Pilot restoran olmak ister misiniz?</h2>
+            <p>
+              QR Resto, ilk pilot kafelerde gercek operasyon verisiyle gelistiriliyor.
+              Kisa bir demo ile masa akisini, admin panelini ve odeme modelini gorebilirsiniz.
+            </p>
+          </div>
+          <a class="button primary" href="mailto:sametatak1234@gmail.com?subject=QR%20Resto%20Pilot%20Restoran">Iletisime gec</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell footer-row">
+        <span>© 2026 QR Resto</span>
+        <span>Restoranlar icin QR menü, adisyon ve odeme deneyimi.</span>
+      </div>
+    </footer>
+  </body>
+</html>
