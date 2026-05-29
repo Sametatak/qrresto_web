@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="QR Resto, restoran ve kafeler icin QR menü, dijital adisyon, masadan ödeme ve admin masa takibi sunan modern ödeme deneyimidir."
+      content="QR Resto, restoran ve kafeler için QR menü, dijital adisyon, masadan ödeme ve admin masa takibi sunan modern ödeme deneyimidir."
     />
     <meta name="theme-color" content="#0f2f2c" />
-    <title>QR Resto | Restoranlar icin QR ödeme sistemi</title>
+    <title>QR Resto | Restoranlar için QR ödeme sistemi</title>
     <style>
       :root {
         color-scheme: light;
@@ -79,6 +79,11 @@
         align-items: center;
         gap: 10px;
         font-weight: 800;
+        transition: transform 180ms ease, color 180ms ease;
+      }
+
+      .brand:hover {
+        transform: translateY(-1px);
       }
 
       .brand-mark {
@@ -114,6 +119,22 @@
         font-size: 14px;
         font-weight: 800;
         white-space: nowrap;
+        box-shadow: 0 0 0 rgba(15, 47, 44, 0);
+        transition:
+          transform 180ms ease,
+          box-shadow 180ms ease,
+          background 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(15, 47, 44, 0.16);
+      }
+
+      .button:active {
+        transform: translateY(0);
+        box-shadow: 0 6px 16px rgba(15, 47, 44, 0.12);
       }
 
       .button.primary {
@@ -125,6 +146,10 @@
         border-color: var(--line);
         background: #ffffff;
         color: var(--green-deep);
+      }
+
+      .button.secondary:hover {
+        border-color: rgba(15, 118, 110, 0.38);
       }
 
       .hero {
@@ -159,6 +184,7 @@
         border-radius: 50%;
         background: var(--lime);
         box-shadow: 0 0 0 5px rgba(199, 227, 95, 0.22);
+        animation: pulseDot 2.6s ease-in-out infinite;
       }
 
       h1,
@@ -224,11 +250,16 @@
       }
 
       .visual-frame {
+        margin: 0;
         overflow: hidden;
         border: 1px solid rgba(15, 47, 44, 0.13);
         border-radius: 8px;
         background: #10211f;
         box-shadow: var(--shadow);
+        transition:
+          transform 220ms ease,
+          box-shadow 220ms ease,
+          border-color 220ms ease;
       }
 
       .visual-frame.admin {
@@ -236,6 +267,7 @@
         top: 4px;
         right: 0;
         width: 70%;
+        animation: floatAdmin 7s ease-in-out infinite;
       }
 
       .visual-frame.menu {
@@ -245,6 +277,12 @@
         width: 34%;
         background: #ffffff;
         box-shadow: 0 22px 44px rgba(15, 47, 44, 0.22);
+        animation: floatMenu 6.4s ease-in-out infinite;
+      }
+
+      .hero-visual:hover .visual-frame {
+        border-color: rgba(15, 118, 110, 0.28);
+        box-shadow: 0 28px 70px rgba(15, 47, 44, 0.18);
       }
 
       .visual-frame img {
@@ -265,6 +303,7 @@
         font-size: 13px;
         font-weight: 800;
         box-shadow: 0 16px 34px rgba(15, 47, 44, 0.14);
+        animation: fadeUp 700ms ease 520ms both;
       }
 
       .section {
@@ -311,6 +350,18 @@
         border: 1px solid var(--line);
         border-radius: 8px;
         background: #ffffff;
+        transition:
+          transform 220ms ease,
+          box-shadow 220ms ease,
+          border-color 220ms ease;
+      }
+
+      .step:hover,
+      .feature:hover,
+      .metric:hover {
+        transform: translateY(-5px);
+        border-color: rgba(15, 118, 110, 0.24);
+        box-shadow: 0 18px 42px rgba(15, 47, 44, 0.1);
       }
 
       .step {
@@ -363,6 +414,11 @@
         margin-bottom: 22px;
         border-radius: 8px;
         background: var(--amber);
+        transition: width 220ms ease;
+      }
+
+      .feature:hover .feature-line {
+        width: 66px;
       }
 
       .feature:nth-child(2) .feature-line {
@@ -390,6 +446,7 @@
         padding: 30px;
         background: var(--green-deep);
         color: #ffffff;
+        box-shadow: 0 24px 54px rgba(15, 47, 44, 0.16);
       }
 
       .trust-panel h2 {
@@ -459,6 +516,89 @@
       .cta .button.primary {
         background: var(--lime);
         color: #14201d;
+      }
+
+      .hero .eyebrow,
+      .hero h1,
+      .hero-copy,
+      .hero-actions,
+      .hero-proof,
+      .hero-visual {
+        animation: fadeUp 760ms ease both;
+      }
+
+      .hero h1 {
+        animation-delay: 90ms;
+      }
+
+      .hero-copy {
+        animation-delay: 170ms;
+      }
+
+      .hero-actions {
+        animation-delay: 250ms;
+      }
+
+      .hero-proof {
+        animation-delay: 330ms;
+      }
+
+      .hero-visual {
+        animation-delay: 180ms;
+      }
+
+      .reveal-ready .reveal-target {
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 620ms ease,
+          transform 620ms ease;
+      }
+
+      .reveal-ready .reveal-target.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes floatAdmin {
+        0%,
+        100% {
+          transform: translate3d(0, 0, 0);
+        }
+        50% {
+          transform: translate3d(0, -8px, 0);
+        }
+      }
+
+      @keyframes floatMenu {
+        0%,
+        100% {
+          transform: translate3d(0, 0, 0);
+        }
+        50% {
+          transform: translate3d(0, 7px, 0);
+        }
+      }
+
+      @keyframes pulseDot {
+        0%,
+        100% {
+          box-shadow: 0 0 0 5px rgba(199, 227, 95, 0.22);
+        }
+        50% {
+          box-shadow: 0 0 0 8px rgba(199, 227, 95, 0.1);
+        }
       }
 
       footer {
@@ -581,6 +721,22 @@
           margin-bottom: 8px;
         }
       }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+          transition-duration: 0.001ms !important;
+        }
+
+        .reveal-ready .reveal-target {
+          opacity: 1;
+          transform: none;
+        }
+      }
     </style>
   </head>
   <body>
@@ -590,12 +746,12 @@
           <span class="brand-mark">QR</span>
           <span>QR Resto</span>
         </a>
-        <div class="nav-links" aria-label="Sayfa bolumleri">
+        <div class="nav-links" aria-label="Sayfa bölümleri">
           <a href="#model">Model</a>
           <a href="#faydalar">Faydalar</a>
-          <a href="#guven">Guven</a>
+          <a href="#guven">Güven</a>
         </div>
-        <a class="button primary" href="mailto:sametatak1234@gmail.com?subject=QR%20Resto%20Pilot%20Restoran">Pilot gorusme</a>
+        <a class="button primary" href="mailto:sametatakwork@gmail.com?subject=QR%20Resto%20Pilot%20Restoran">Pilot görüşme</a>
       </nav>
     </header>
 
@@ -603,17 +759,17 @@
       <section class="hero" aria-labelledby="hero-title">
         <div class="shell hero-grid">
           <div>
-            <p class="eyebrow">Pilot restoranlar icin hazir QR deneyimi</p>
+            <p class="eyebrow">Pilot restoranlar için hazır QR deneyimi</p>
             <h1 id="hero-title">QR Resto</h1>
             <p class="hero-copy">
-              Restoran ve kafeler icin QR menü, dijital adisyon, masadan ödeme,
+              Restoran ve kafeler için QR menü, dijital adisyon, masadan ödeme,
               bahşiş ve canlı masa takibini tek akışta birleştiren modern ödeme sistemi.
             </p>
             <div class="hero-actions">
-              <a class="button primary" href="mailto:sametatak1234@gmail.com?subject=QR%20Resto%20Demo%20Talebi">Demo iste</a>
+              <a class="button primary" href="mailto:sametatakwork@gmail.com?subject=QR%20Resto%20Demo%20Talebi">Demo iste</a>
               <a class="button secondary" href="#model">Modeli incele</a>
             </div>
-            <div class="hero-proof" aria-label="QR Resto ozeti">
+            <div class="hero-proof" aria-label="QR Resto özeti">
               <div class="proof-item">
                 <strong>QR</strong>
                 <span>Masa bazlı güvenli menü ve ödeme akışı</span>
@@ -629,15 +785,15 @@
             </div>
           </div>
 
-          <div class="hero-visual" aria-label="QR Resto urun ekranlari">
+          <div class="hero-visual" aria-label="QR Resto ürün ekranları">
             <figure class="visual-frame admin">
-              <img src="assets/admin-preview.png" alt="QR Resto admin masa haritasi ve dekont paneli" />
+              <img src="assets/admin-preview.png" alt="QR Resto admin masa haritası ve dekont paneli" />
             </figure>
             <figure class="visual-frame menu">
-              <img src="assets/menu-preview.png" alt="QR Resto mobil menu ve sepet deneyimi" />
+              <img src="assets/menu-preview.png" alt="QR Resto mobil menü ve sepet deneyimi" />
             </figure>
             <div class="visual-caption">
-              Musteri telefondan ilerler, restoran masayi tablet panelinden anlik takip eder.
+              Müşteri telefondan ilerler, restoran masayı tablet panelinden anlık takip eder.
             </div>
           </div>
         </div>
@@ -645,28 +801,28 @@
 
       <section id="model" class="section">
         <div class="shell">
-          <div class="section-head">
-            <h2>Masadaki odeme akisi restoranin isini yavaslatmadan ilerler.</h2>
+          <div class="section-head reveal-target">
+            <h2>Masadaki ödeme akışı restoranın işini yavaşlatmadan ilerler.</h2>
             <p>
-              QR Resto, garsonu devreden cikarmak yerine tekrar eden hesap alma
-              islemlerini azaltir ve ekibin servis kalitesine odaklanmasini saglar.
+              QR Resto, garsonu devreden çıkarmak yerine tekrar eden hesap alma
+              işlemlerini azaltır ve ekibin servis kalitesine odaklanmasını sağlar.
             </p>
           </div>
           <div class="steps">
-            <article class="step">
+            <article class="step reveal-target">
               <div class="step-number">1</div>
               <h3>QR okutulur</h3>
-              <p>Musteri masaya ozel QR kodu okutur, menuyu ve adisyonu telefonundan gorur.</p>
+              <p>Müşteri masaya özel QR kodu okutur, menüyü ve adisyonu telefonundan görür.</p>
             </article>
-            <article class="step">
+            <article class="step reveal-target">
               <div class="step-number">2</div>
-              <h3>Tutar secilir</h3>
-              <p>Urun bazli hesaplama yardimi, elle tutar girisi ve bahsis ayni ekranda calisir.</p>
+              <h3>Tutar seçilir</h3>
+              <p>Ürün bazlı hesaplama yardımı, elle tutar girişi ve bahşiş aynı ekranda çalışır.</p>
             </article>
-            <article class="step">
+            <article class="step reveal-target">
               <div class="step-number">3</div>
-              <h3>Odeme tamamlanir</h3>
-              <p>Nakit, kart veya yemek karti akislari restorana ait hesap uzerinden yonetilir.</p>
+              <h3>Ödeme tamamlanır</h3>
+              <p>Nakit, kart veya yemek kartı akışları restorana ait hesap üzerinden yönetilir.</p>
             </article>
           </div>
         </div>
@@ -674,33 +830,33 @@
 
       <section id="faydalar" class="section soft">
         <div class="shell">
-          <div class="section-head">
-            <h2>Kafe ve restoranlar icin sade ama satisa hazir bir operasyon katmani.</h2>
+          <div class="section-head reveal-target">
+            <h2>Kafe ve restoranlar için sade ama satışa hazır bir operasyon katmanı.</h2>
             <p>
-              Odak, restoran sahibinin her gun gordugu problemlerde: masa donusu,
-              adisyon takibi, bahsis, nakit onayi ve mutfakla koordinasyon.
+              Odak, restoran sahibinin her gün gördüğü problemlerde: masa dönüşü,
+              adisyon takibi, bahşiş, nakit onayı ve mutfakla koordinasyon.
             </p>
           </div>
           <div class="feature-grid">
-            <article class="feature">
+            <article class="feature reveal-target">
               <div class="feature-line"></div>
-              <h3>Canli masa haritasi</h3>
-              <p>Admin paneli masalari, acik hesaplari ve odeme durumlarini tek ekranda gosterir.</p>
+              <h3>Canlı masa haritası</h3>
+              <p>Admin paneli masaları, açık hesapları ve ödeme durumlarını tek ekranda gösterir.</p>
             </article>
-            <article class="feature">
+            <article class="feature reveal-target">
               <div class="feature-line"></div>
-              <h3>Musteri siparisi</h3>
-              <p>Sepet, mutfak bildirimi ve siparis durumlari tablet ekranina uyumlu akar.</p>
+              <h3>Müşteri siparişi</h3>
+              <p>Sepet, mutfak bildirimi ve sipariş durumları tablet ekranına uyumlu akar.</p>
             </article>
-            <article class="feature">
+            <article class="feature reveal-target">
               <div class="feature-line"></div>
-              <h3>Bahsis ve bolusum</h3>
-              <p>Musteri kendi odemek istedigi tutari ve bahsisi elle belirleyebilir.</p>
+              <h3>Bahşiş ve bölüşüm</h3>
+              <p>Müşteri kendi ödemek istediği tutarı ve bahşişi elle belirleyebilir.</p>
             </article>
-            <article class="feature">
+            <article class="feature reveal-target">
               <div class="feature-line"></div>
-              <h3>AI menu asistani</h3>
-              <p>Menuye hakim asistan, kararsiz musterilere hafif, doyurucu veya tatli onerileri sunar.</p>
+              <h3>AI menü asistanı</h3>
+              <p>Menüye hakim asistan, kararsız müşterilere hafif, doyurucu veya tatlı önerileri sunar.</p>
             </article>
           </div>
         </div>
@@ -708,54 +864,94 @@
 
       <section id="guven" class="section" aria-labelledby="trust-title">
         <div class="shell trust">
-          <div class="trust-panel">
-            <h2 id="trust-title">Odeme modeli restoran hesabini merkeze alir.</h2>
+          <div class="trust-panel reveal-target">
+            <h2 id="trust-title">Ödeme modeli restoran hesabını merkeze alır.</h2>
             <p>
-              QR Resto, pazaryeri veya sanal POS altyapisi ile calisacak sekilde tasarlanir.
-              Musteriden alinan odeme resmi odeme kurulusunun akisi icinde restorana iletilir;
-              platform komisyonu ayrica tanimlanabilir.
+              QR Resto, pazaryeri veya sanal POS altyapısı ile çalışacak şekilde tasarlanır.
+              Müşteriden alınan ödeme resmi ödeme kuruluşunun akışı içinde restorana iletilir;
+              platform komisyonu ayrıca tanımlanabilir.
             </p>
           </div>
-          <div class="metrics" aria-label="Guven modeli basliklari">
-            <div class="metric">
+          <div class="metrics" aria-label="Güven modeli başlıkları">
+            <div class="metric reveal-target">
               <strong>Resmi PSP</strong>
-              <span>PayTR, Param veya benzeri lisansli odeme kuruluslariyla calismaya uygun yapi.</span>
+              <span>PayTR, Param veya benzeri lisanslı ödeme kuruluşlarıyla çalışmaya uygun yapı.</span>
             </div>
-            <div class="metric">
-              <strong>Alt uye isyeri</strong>
-              <span>Restoran, odeme akisi icinde kendi ticari kimligiyle konumlanir.</span>
+            <div class="metric reveal-target">
+              <strong>Alt üye işyeri</strong>
+              <span>Restoran, ödeme akışı içinde kendi ticari kimliğiyle konumlanır.</span>
             </div>
-            <div class="metric">
-              <strong>Panel guvenligi</strong>
-              <span>Admin ve mutfak ekranlari sifreli, tahmin edilmesi zor URL yapisiyla korunur.</span>
+            <div class="metric reveal-target">
+              <strong>Panel güvenliği</strong>
+              <span>Admin ve mutfak ekranları şifreli, tahmin edilmesi zor URL yapısıyla korunur.</span>
             </div>
-            <div class="metric">
-              <strong>Dekont kaydi</strong>
-              <span>Gun ici odemeler, bahsisler ve masa kapatmalari geriye donuk izlenebilir.</span>
+            <div class="metric reveal-target">
+              <strong>Dekont kaydı</strong>
+              <span>Gün içi ödemeler, bahşişler ve masa kapatmaları geriye dönük izlenebilir.</span>
             </div>
           </div>
         </div>
       </section>
 
       <section class="cta" aria-labelledby="cta-title">
-        <div class="shell cta-box">
+        <div class="shell cta-box reveal-target">
           <div>
             <h2 id="cta-title">Pilot restoran olmak ister misiniz?</h2>
             <p>
-              QR Resto, ilk pilot kafelerde gercek operasyon verisiyle gelistiriliyor.
-              Kisa bir demo ile masa akisini, admin panelini ve odeme modelini gorebilirsiniz.
+              QR Resto, ilk pilot kafelerde gerçek operasyon verisiyle geliştiriliyor.
+              Kısa bir demo ile masa akışını, admin panelini ve ödeme modelini görebilirsiniz.
             </p>
           </div>
-          <a class="button primary" href="mailto:sametatak1234@gmail.com?subject=QR%20Resto%20Pilot%20Restoran">Iletisime gec</a>
+          <a class="button primary" href="mailto:sametatakwork@gmail.com?subject=QR%20Resto%20Pilot%20Restoran">İletişime geç</a>
         </div>
       </section>
     </main>
 
     <footer>
       <div class="shell footer-row">
-        <span>© 2026 QR Resto</span>
-        <span>Restoranlar icin QR menü, adisyon ve odeme deneyimi.</span>
+        <span>&copy; 2026 QR Resto</span>
+        <span>Restoranlar için QR menü, adisyon ve ödeme deneyimi.</span>
       </div>
     </footer>
+    <script>
+      (() => {
+        const revealTargets = Array.from(document.querySelectorAll(".reveal-target"));
+        const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (!revealTargets.length || reducedMotion || !("IntersectionObserver" in window)) {
+          revealTargets.forEach((target) => target.classList.add("is-visible"));
+          return;
+        }
+
+        document.documentElement.classList.add("reveal-ready");
+
+        revealTargets.forEach((target, index) => {
+          target.style.transitionDelay = `${Math.min((index % 4) * 70, 210)}ms`;
+        });
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            });
+          },
+          {
+            rootMargin: "0px 0px -8% 0px",
+            threshold: 0.18,
+          }
+        );
+
+        revealTargets.forEach((target) => observer.observe(target));
+
+        window.setTimeout(() => {
+          revealTargets.forEach((target) => {
+            target.classList.add("is-visible");
+            observer.unobserve(target);
+          });
+        }, 2600);
+      })();
+    </script>
   </body>
 </html>
